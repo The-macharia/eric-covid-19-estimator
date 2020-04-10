@@ -46,10 +46,10 @@ def estimationByTime(data):
     days = normalize_days(data)
 
     currentlyInfectedImpactByTime = estimate['impact']['currentlyInfected'] * (
-        2 * int(days/3))
+        2 ** int(days/3))
 
     currentlyInfectedSevereByTime = estimate['severeImpact']['currentlyInfected'] * (
-        2 * int(days/3))
+        2 ** int(days/3))
 
     estimate['severeImpact']['infectionsByRequestedTime'] = currentlyInfectedSevereByTime
     estimate['impact']['infectionsByRequestedTime'] = currentlyInfectedImpactByTime
