@@ -1,16 +1,17 @@
-sample = {
-    'region': {
-        'name': 'Africa',
-        'avgAge': 19.7,
-        'avgDailyIncomeInUSD': 5,
-        'avgDailyIncomePopulation': 0.71,
-    },
-    'periodType': 'days',
-    'timeToElapse': 58,
-    'reportedCases': 674,
-    'population': 66622705,
-    'totalHospitalBeds': 1380614
-}
+import math
+# sample = {
+#     'region': {
+#         'name': 'Africa',
+#         'avgAge': 19.7,
+#         'avgDailyIncomeInUSD': 5,
+#         'avgDailyIncomePopulation': 0.71,
+#     },
+#     'periodType': 'days',
+#     'timeToElapse': 58,
+#     'reportedCases': 674,
+#     'population': 66622705,
+#     'totalHospitalBeds': 1380614
+# }
 
 
 def normalize_days(data):
@@ -61,9 +62,9 @@ def severeEstimationCases(data):
     hospitalBedsByRequestedTime = int(
         0.35 * estimate['data']['totalHospitalBeds'])
 
-    impact_severe_positive = int(
+    impact_severe_positive = math.floor(
         0.15 * estimate['impact']['infectionsByRequestedTime'])
-    severe_positive = int(
+    severe_positive = math.floor(
         0.15 * estimate['severeImpact']['infectionsByRequestedTime'])
 
     estimate['impact']['severeCasesByRequestedTime'] = impact_severe_positive
@@ -77,9 +78,25 @@ def severeEstimationCases(data):
     return estimate
 
 
-def estimator(data):
+def infectionsToIcu(data):
     estimate = severeEstimationCases(data)
+
+    impact_icu = math.floor(0.05 * estimate['impact']['infectionsByRequestedTime'])
+    severe_impact_icu = math.floor(0.05 * estimate['severeImpact']['infectionsByRequestedTime'])
+
+    estimate['impact']['casesForICUByRequestedTime'] = impact_icu
+    estimate['severeImpact']['casesForICUByRequestedTime'] = severe_impact_icu
+    return estimate
+
+def requireVentilator(data):
+    estimate = infectionsToIcu(data)
+
+    # impact_ventilators =
+    return estimate
+
+def estimator(data):
+    estimate = requireVentilator(data)
     return estimate
 
 
-print(estimator(sample))
+# print(estimator(sample))
