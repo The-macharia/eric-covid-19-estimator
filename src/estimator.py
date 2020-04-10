@@ -32,20 +32,12 @@ def estimation(data):
 
     impact['currentlyInfected'] = currentlyInfected
     severeImpact['currentlyInfected'] = severeImpactCases
-    # estimate = {
-    #     'data': data,
-    #     'impact': impact,
-    #     'severeImpact': severeImpact,
-    # }
     estimate = {
         'data': data,
-        'impact': {
-            'currentlyInfected': currentlyInfected,
-        },
-        'severeImpact': {
-            'currentlyInfected': severeImpactCases,
-        },
+        'impact': impact,
+        'severeImpact': severeImpact,
     }
+
     return estimate
 
 
