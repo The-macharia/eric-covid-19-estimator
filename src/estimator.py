@@ -59,14 +59,14 @@ def estimationByTime(data):
 
 def severeEstimationCases(data):
     estimate = estimationByTime(data)
-    hospitalBedsByRequestedTime = int(
+    hospitalBedsByRequestedTime = math.floor(
         0.35 * estimate['data']['totalHospitalBeds'])
 
     impact_severe_positive = math.floor(
         0.15 * estimate['impact']['infectionsByRequestedTime'])
     severe_positive = math.floor(
         0.15 * estimate['severeImpact']['infectionsByRequestedTime'])
-
+    currentlyInfected = int(data['reportedCases'] * 10)
     estimate['impact']['severeCasesByRequestedTime'] = impact_severe_positive
     estimate['impact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
         estimate['impact']['severeCasesByRequestedTime']
