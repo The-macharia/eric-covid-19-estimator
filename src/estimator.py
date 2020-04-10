@@ -1,16 +1,16 @@
-# sample = {
-#     'region': {
-#         'name': 'Africa',
-#         'avgAge': 19.7,
-#         'avgDailyIncomeInUSD': 5,
-#         'avgDailyIncomePopulation': 0.71,
-#     },
-#     'periodType': 'days',
-#     'timeToElapse': 58,
-#     'reportedCases': 674,
-#     'population': 66622705,
-#     'totalHospitalBeds': 1380614
-# }
+sample = {
+    'region': {
+        'name': 'Africa',
+        'avgAge': 19.7,
+        'avgDailyIncomeInUSD': 5,
+        'avgDailyIncomePopulation': 0.71,
+    },
+    'periodType': 'days',
+    'timeToElapse': 61,
+    'reportedCases': 674,
+    'population': 66622705,
+    'totalHospitalBeds': 1380614
+}
 
 
 def normalize_days(data):
@@ -24,8 +24,8 @@ def normalize_days(data):
 
 
 def estimation(data):
-    impact = dict()
-    severeImpact = dict()
+    impact = {}
+    severeImpact = {}
 
     currentlyInfected = data['reportedCases'] * 10
     severeImpactCases = data['reportedCases'] * 50
@@ -34,10 +34,8 @@ def estimation(data):
     severeImpact['currentlyInfected'] = severeImpactCases
     estimate = {
         'data': data,
-        'estimate': {
-            'impact': impact,
-            'severeImpact': severeImpact
-        },
+        'impact': impact,
+        'severeImpact': severeImpact,
     }
     return estimate
 
@@ -46,20 +44,41 @@ def estimationByTime(data):
     estimate = estimation(data)
     days = normalize_days(data)
 
-    currentlyInfectedImpactByTime = estimate['estimate']['impact']['currentlyInfected'] * (
+    currentlyInfectedImpactByTime = estimate['impact']['currentlyInfected'] * (
         2 * int(days/3))
 
-    currentlyInfectedSevereByTime = estimate['estimate']['severeImpact']['currentlyInfected'] * (
+    currentlyInfectedSevereByTime = estimate['severeImpact']['currentlyInfected'] * (
         2 * int(days/3))
 
-    estimate['estimate']['severeImpact']['infectionsByRequestedTime'] = currentlyInfectedSevereByTime
-    estimate['estimate']['impact']['infectionsByRequestedTime'] = currentlyInfectedImpactByTime
+    estimate['severeImpact']['infectionsByRequestedTime'] = currentlyInfectedSevereByTime
+    estimate['impact']['infectionsByRequestedTime'] = currentlyInfectedImpactByTime
+    return estimate
+
+
+def severeEstimationCases(data):
+    estimate = estimationByTime(data)
+    hospitalBedsByRequestedTime = int(
+        0.35 * estimate['data']['totalHospitalBeds'])
+
+    impact_severe_positive = int(
+        0.15 * estimate['impact']['infectionsByRequestedTime'])
+    severe_positive = int(
+        0.15 * estimate['severeImpact']['infectionsByRequestedTime'])
+
+    estimate['impact']['severeCasesByRequestedTime'] = impact_severe_positive
+    estimate['impact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
+        estimate['impact']['severeCasesByRequestedTime']
+
+    estimate['severeImpact']['severeCasesByRequestedTime'] = severe_positive
+    estimate['severeImpact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
+        estimate['severeImpact']['severeCasesByRequestedTime']
+
     return estimate
 
 
 def estimator(data):
-    estimate = estimationByTime(data)
+    estimate = severeEstimationCases(data)
     return estimate
 
 
-# print(estimator(sample))
+print(estimator(sample))
