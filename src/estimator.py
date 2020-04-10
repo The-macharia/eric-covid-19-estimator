@@ -6,8 +6,8 @@ sample = {
         'avgDailyIncomePopulation': 0.71,
     },
     'periodType': 'days',
-    'timeToElapse': 61,
-    'reportedCases': 674.56,
+    'timeToElapse': 58,
+    'reportedCases': 674,
     'population': 66622705,
     'totalHospitalBeds': 1380614
 }
@@ -43,7 +43,7 @@ def estimation(data):
             'currentlyInfected': float(currentlyInfected),
         },
         'severeImpact': {
-            'currentlyInfected': float(severeImpactCases)
+            'currentlyInfected': float(severeImpactCases),
         },
     }
     return estimate
