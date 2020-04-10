@@ -7,7 +7,7 @@ sample = {
     },
     'periodType': 'days',
     'timeToElapse': 61,
-    'reportedCases': 674,
+    'reportedCases': 674.56,
     'population': 66622705,
     'totalHospitalBeds': 1380614
 }
@@ -27,8 +27,8 @@ def estimation(data):
     impact = {}
     severeImpact = {}
 
-    currentlyInfected = data['reportedCases'] * 10
-    severeImpactCases = data['reportedCases'] * 50
+    currentlyInfected = int(data['reportedCases'] * 10)
+    severeImpactCases = int(data['reportedCases'] * 50)
 
     impact['currentlyInfected'] = currentlyInfected
     severeImpact['currentlyInfected'] = severeImpactCases
