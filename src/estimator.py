@@ -17,10 +17,10 @@ def normalize_days(data):
     if data['periodType'] == 'days':
         days = data['timeToElapse']
         return days
-    elif data['periodType'] == 'weeks':
+    if data['periodType'] == 'weeks':
         days = data['timeToElapse'] * 7
         return days
-    elif data['periodType'] == 'months':
+    if data['periodType'] == 'months':
         days = data['timeToElapse'] * 30
         return days
 
