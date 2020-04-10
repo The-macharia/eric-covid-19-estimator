@@ -40,10 +40,10 @@ def estimation(data):
     estimate = {
         'data': data,
         'impact': {
-            'currentlyInfected': float(currentlyInfected),
+            'currentlyInfected': currentlyInfected,
         },
         'severeImpact': {
-            'currentlyInfected': float(severeImpactCases),
+            'currentlyInfected': severeImpactCases,
         },
     }
     return estimate
