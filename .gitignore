@@ -1,5 +1,7 @@
 .github/.DS_Store
 
+package-lock.json
+
 # if using VSCode
 .vscode/
 
