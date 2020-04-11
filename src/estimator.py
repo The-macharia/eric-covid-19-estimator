@@ -1,17 +1,17 @@
 import math
-# sample = {
-#     'region': {
-#         'name': 'Africa',
-#         'avgAge': 19.7,
-#         'avgDailyIncomeInUSD': 5,
-#         'avgDailyIncomePopulation': 0.71,
-#     },
-#     'periodType': 'days',
-#     'timeToElapse': 58,
-#     'reportedCases': 674,
-#     'population': 66622705,
-#     'totalHospitalBeds': 1380614
-# }
+sample = {
+    'region': {
+        'name': 'Africa',
+        'avgAge': 19.7,
+        'avgDailyIncomeInUSD': 5,
+        'avgDailyIncomePopulation': 0.71,
+    },
+    'periodType': 'days',
+    'timeToElapse': 58,
+    'reportedCases': 674,
+    'population': 66622705,
+    'totalHospitalBeds': 1380614
+}
 
 
 def normalize_days(data):
@@ -47,10 +47,10 @@ def estimationByTime(data):
     days = normalize_days(data)
 
     currentlyInfectedImpactByTime = estimate['impact']['currentlyInfected'] * (
-        2 ** int(days/3))
+        2 ** (days//3))
 
     currentlyInfectedSevereByTime = estimate['severeImpact']['currentlyInfected'] * (
-        2 ** int(days/3))
+        2 ** (days//3))
 
     estimate['severeImpact']['infectionsByRequestedTime'] = currentlyInfectedSevereByTime
     estimate['impact']['infectionsByRequestedTime'] = currentlyInfectedImpactByTime
@@ -99,4 +99,4 @@ def estimator(data):
     return estimate
 
 
-# print(estimator(sample))
+print(estimator(sample))
