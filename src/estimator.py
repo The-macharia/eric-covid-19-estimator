@@ -60,12 +60,17 @@ def estimationByTime(data):
 def severeEstimationCases(data):
     estimate = estimationByTime(data)
     hospitalBedsByRequestedTime = int(
-        35/100 * estimate['data']['totalHospitalBeds'])
+        0.35 * estimate['data']['totalHospitalBeds'])
 
     impact_severe_positive = int(
-        15/100 * estimate['impact']['infectionsByRequestedTime'])
+        0.15 * estimate['impact']['infectionsByRequestedTime'])
     severe_positive = int(
-        15/100 * estimate['severeImpact']['infectionsByRequestedTime'])
+        0.15 * estimate['severeImpact']['infectionsByRequestedTime'])
+
+    if impact_severe_positive < 0:
+        impact_severe_positive = impact_severe_positive -1
+    if severe_positive < 0:
+        impact_severe_positive = severe_positive -1
 
     estimate['impact']['severeCasesByRequestedTime'] = impact_severe_positive
     estimate['severeImpact']['severeCasesByRequestedTime'] = severe_positive
