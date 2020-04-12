@@ -28,8 +28,8 @@ def estimation(data):
     impact = {}
     severeImpact = {}
 
-    currentlyInfected = int(data['reportedCases'] * 10)
-    severeImpactCases = int(data['reportedCases'] * 50)
+    currentlyInfected = math.floor(data['reportedCases'] * 10)
+    severeImpactCases = math.floor(data['reportedCases'] * 50)
 
     impact['currentlyInfected'] = currentlyInfected
     severeImpact['currentlyInfected'] = severeImpactCases
@@ -47,10 +47,10 @@ def estimationByTime(data):
     days = normalize_days(data)
 
     currentlyInfectedImpactByTime = estimate['impact']['currentlyInfected'] * (
-        2 ** int(days/3))
+        2 ** math.floor(days/3))
 
     currentlyInfectedSevereByTime = estimate['severeImpact']['currentlyInfected'] * (
-        2 ** int(days/3))
+        2 ** math.floor(days/3))
 
     estimate['severeImpact']['infectionsByRequestedTime'] = currentlyInfectedSevereByTime
     estimate['impact']['infectionsByRequestedTime'] = currentlyInfectedImpactByTime
@@ -86,8 +86,8 @@ def severeEstimationCases(data):
 def infectionsToIcu(data):
     estimate = severeEstimationCases(data)
 
-    impact_icu = int(0.05 * estimate['impact']['infectionsByRequestedTime'])
-    severe_impact_icu = int(
+    impact_icu = math.floor(0.05 * estimate['impact']['infectionsByRequestedTime'])
+    severe_impact_icu = math.floor(
         0.05 * estimate['severeImpact']['infectionsByRequestedTime'])
 
     estimate['impact']['casesForICUByRequestedTime'] = impact_icu
@@ -98,9 +98,9 @@ def infectionsToIcu(data):
 def requireVentilator(data):
     estimate = infectionsToIcu(data)
 
-    impact_ventilators = int(
+    impact_ventilators = math.floor(
         0.02 * estimate['impact']['infectionsByRequestedTime'])
-    severe_impact_ventilators = int(
+    severe_impact_ventilators = math.floor(
         0.02 * estimate['severeImpact']['infectionsByRequestedTime'])
 
     estimate['impact']['casesForVentilatorsByRequestedTime'] = impact_ventilators
@@ -113,9 +113,9 @@ def dollarsInFlight(data):
     estimate = requireVentilator(data)
     days = normalize_days(data)
 
-    impact_dollars = int(
+    impact_dollars = math.floor(
         (estimate['impact']['infectionsByRequestedTime'] * 1.5 * 0.65)/days)
-    severe_impact_dollars = int(
+    severe_impact_dollars = math.floor(
         (estimate['severeImpact']['infectionsByRequestedTime'] * 1.5 * 0.65)/days)
 
     estimate['impact']['dollarsInFlight'] = impact_dollars
