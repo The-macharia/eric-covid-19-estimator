@@ -8,9 +8,9 @@ sample = {
     },
     'periodType': 'days',
     'timeToElapse': 58,
-    'reportedCases': 674,
+    'reportedCases': 100,
     'population': 66622705,
-    'totalHospitalBeds': 1380614
+    'totalHospitalBeds': 100
 }
 
 
@@ -67,18 +67,22 @@ def severeEstimationCases(data):
     severe_positive = math.floor(
         0.15 * estimate['severeImpact']['infectionsByRequestedTime'])
 
-    # if impact_severe_positive < 0:
-    #     impact_severe_positive = impact_severe_positive + 1
-    # if severe_positive < 0:
-    #     impact_severe_positive = severe_positive + 1
-
     estimate['impact']['severeCasesByRequestedTime'] = impact_severe_positive
     estimate['severeImpact']['severeCasesByRequestedTime'] = severe_positive
 
-    estimate['impact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
-        estimate['impact']['severeCasesByRequestedTime']
-    estimate['severeImpact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
-        estimate['severeImpact']['severeCasesByRequestedTime']
+    if estimate['impact']['severeCasesByRequestedTime'] > hospitalBedsByRequestedTime:
+        estimate['impact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
+            estimate['impact']['severeCasesByRequestedTime'] - 1
+    else:
+        estimate['impact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
+            estimate['impact']['severeCasesByRequestedTime']
+
+    if estimate['impact']['severeCasesByRequestedTime'] > hospitalBedsByRequestedTime:
+        estimate['severeImpact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
+            estimate['severeImpact']['severeCasesByRequestedTime'] - 1
+    else:
+        estimate['severeImpact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
+            estimate['severeImpact']['severeCasesByRequestedTime']
 
     return estimate
 
@@ -86,7 +90,8 @@ def severeEstimationCases(data):
 def infectionsToIcu(data):
     estimate = severeEstimationCases(data)
 
-    impact_icu = math.floor(0.05 * estimate['impact']['infectionsByRequestedTime'])
+    impact_icu = math.floor(
+        0.05 * estimate['impact']['infectionsByRequestedTime'])
     severe_impact_icu = math.floor(
         0.05 * estimate['severeImpact']['infectionsByRequestedTime'])
 
@@ -113,10 +118,12 @@ def dollarsInFlight(data):
     estimate = requireVentilator(data)
     days = normalize_days(data)
 
+    loss = estimate['data']['region']['avgDailyIncomeInUSD'] * \
+        estimate['data']['region']['avgDailyIncomePopulation']
     impact_dollars = math.floor(
-        (estimate['impact']['infectionsByRequestedTime'] * 1.5 * 0.65)/days)
+        (estimate['impact']['infectionsByRequestedTime'] * loss)/days)
     severe_impact_dollars = math.floor(
-        (estimate['severeImpact']['infectionsByRequestedTime'] * 1.5 * 0.65)/days)
+        (estimate['severeImpact']['infectionsByRequestedTime'] * loss)/days)
 
     estimate['impact']['dollarsInFlight'] = impact_dollars
     estimate['severeImpact']['dollarsInFlight'] = severe_impact_dollars
