@@ -68,9 +68,9 @@ def severeEstimationCases(data):
         0.15 * estimate['severeImpact']['infectionsByRequestedTime'])
 
     if impact_severe_positive < 0:
-        impact_severe_positive = impact_severe_positive -1
+        impact_severe_positive = impact_severe_positive + 1
     if severe_positive < 0:
-        impact_severe_positive = severe_positive -1
+        impact_severe_positive = severe_positive + 1
 
     estimate['impact']['severeCasesByRequestedTime'] = impact_severe_positive
     estimate['severeImpact']['severeCasesByRequestedTime'] = severe_positive
@@ -98,25 +98,31 @@ def infectionsToIcu(data):
 def requireVentilator(data):
     estimate = infectionsToIcu(data)
 
-    impact_ventilators = int(0.02 * estimate['impact']['infectionsByRequestedTime'])
-    severe_impact_ventilators = int(0.02 * estimate['severeImpact']['infectionsByRequestedTime'])
+    impact_ventilators = int(
+        0.02 * estimate['impact']['infectionsByRequestedTime'])
+    severe_impact_ventilators = int(
+        0.02 * estimate['severeImpact']['infectionsByRequestedTime'])
 
     estimate['impact']['casesForVentilatorsByRequestedTime'] = impact_ventilators
     estimate['severeImpact']['casesForVentilatorsByRequestedTime'] = severe_impact_ventilators
 
     return estimate
 
+
 def dollarsInFlight(data):
     estimate = requireVentilator(data)
     days = normalize_days(data)
 
-    impact_dollars = int((estimate['impact']['infectionsByRequestedTime'] *1.5 * 0.65)/days)
-    severe_impact_dollars = int((estimate['severeImpact']['infectionsByRequestedTime'] *1.5 * 0.65)/days)
+    impact_dollars = int(
+        (estimate['impact']['infectionsByRequestedTime'] * 1.5 * 0.65)/days)
+    severe_impact_dollars = int(
+        (estimate['severeImpact']['infectionsByRequestedTime'] * 1.5 * 0.65)/days)
 
     estimate['impact']['dollarsInFlight'] = impact_dollars
     estimate['severeImpact']['dollarsInFlight'] = severe_impact_dollars
 
     return estimate
+
 
 def estimator(data):
     estimate = dollarsInFlight(data)
