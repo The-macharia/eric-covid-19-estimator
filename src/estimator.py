@@ -59,30 +59,33 @@ def estimationByTime(data):
 
 def severeEstimationCases(data):
     estimate = estimationByTime(data)
-    hospitalBedsByRequestedTime = math.floor(
-        0.35 * estimate['data']['totalHospitalBeds'])
+    hospitalBedsByRequestedTime = 0.35 * estimate['data']['totalHospitalBeds']
 
-    impact_severe_positive = math.floor(
-        0.15 * estimate['impact']['infectionsByRequestedTime'])
-    severe_positive = math.floor(
-        0.15 * estimate['severeImpact']['infectionsByRequestedTime'])
+    # impact_severe_positive = math.floor(
+    #     0.15 * estimate['impact']['infectionsByRequestedTime'])
+    # severe_positive = math.floor(
+    #     0.15 * estimate['severeImpact']['infectionsByRequestedTime'])
 
-    estimate['impact']['severeCasesByRequestedTime'] = impact_severe_positive
-    estimate['severeImpact']['severeCasesByRequestedTime'] = severe_positive
+    impact_severe_positive = 0.15 * \
+        estimate['impact']['infectionsByRequestedTime']
+    severe_positive = 0.15 * \
+        estimate['severeImpact']['infectionsByRequestedTime']
 
-    if estimate['impact']['severeCasesByRequestedTime'] > hospitalBedsByRequestedTime:
-        estimate['impact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
-            estimate['impact']['severeCasesByRequestedTime'] - 1
-    else:
-        estimate['impact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
-            estimate['impact']['severeCasesByRequestedTime']
+    estimate['impact']['severeCasesByRequestedTime'] = math.floor(
+        impact_severe_positive)
+    estimate['severeImpact']['severeCasesByRequestedTime'] = math.floor(
+        severe_positive)
 
-    if estimate['impact']['severeCasesByRequestedTime'] > hospitalBedsByRequestedTime:
-        estimate['severeImpact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
-            estimate['severeImpact']['severeCasesByRequestedTime'] - 1
-    else:
-        estimate['severeImpact']['hospitalBedsByRequestedTime'] = hospitalBedsByRequestedTime - \
-            estimate['severeImpact']['severeCasesByRequestedTime']
+    estimate['impact']['hospitalBedsByRequestedTime'] = math.floor(
+        hospitalBedsByRequestedTime - impact_severe_positive)
+    estimate['severeImpact']['hospitalBedsByRequestedTime'] = math.floor(
+        hospitalBedsByRequestedTime - severe_positive)
+
+    # estimate['impact']['hospitalBedsByRequestedTime'] = math.floor(hospitalBedsByRequestedTime - \
+    #     estimate['impact']['severeCasesByRequestedTime'])
+
+    # estimate['severeImpact']['hospitalBedsByRequestedTime'] = math.floor(hospitalBedsByRequestedTime - \
+    #     estimate['severeImpact']['severeCasesByRequestedTime'])
 
     return estimate
 
