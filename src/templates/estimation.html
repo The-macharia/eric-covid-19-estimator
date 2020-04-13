@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    {% if title %}
+    <title>Estimator | {{ title }}</title>
+    {% else %}
+    <title>Estimator</title>
+    {% endif %}
+
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg py-3 d-flex justify-content-between">
+            <a class="navbar-brand" style="font-size: 40px;color: #eee;" href="{{ url_for('home') }}">Estimator</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav mr-3">
+                    <li class="nav-item active">
+                        <a class="nav-link" style="color: #eee;font-size: 20px;" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #eee;font-size: 20px;" href="{{ url_for('estimation') }}">Estimations</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="container-fluid">
+        <div class="container">
+
+            <div class="row">
+                <div class="col">
+                    <div class="card my-4" style="background-color: #eee;">
+                        <div class="card-body">
+                            <h3 class="text-center">Impact Estimation</h3>
+                            <div class="card my-3 card-hover" >
+                                <div class="card-body">
+                                    <h5 class="card-title">Currently Infected</h5>
+                                    <p class="card-text">{{ "{:,}".format(impact_data.currentlyInfected)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Infections By Requested Time</h5>
+                                    <p class="card-text">{{"{:,}".format(impact_data.infectionsByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Severe Cases By Requested Time</h5>
+                                    <p class="card-text">{{"{:,}".format(impact_data.severeCasesByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Available Hospital Beds</h5>
+                                    <p class="card-text">{{"{:,}".format(impact_data.hospitalBedsByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">ICU Cases</h5>
+                                    <p class="card-text">{{"{:,}".format(impact_data.casesForICUByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ventilator Cases</h5>
+                                    <p class="card-text">{{"{:,}".format(impact_data.casesForVentilatorsByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Dollars in Flight</h5>
+                                    <p class="card-text">{{"{:,}".format(impact_data.dollarsInFlight)}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card my-4" style="background-color: #eee;">
+                        <div class="card-body">
+                            <h3 class="text-center">Severe Estimation</h3>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Currently Infected</h5>
+                                    <p class="card-text">{{"{:,}".format(severe_data.s_currentlyInfected)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Infections By Requested Time</h5>
+                                    <p class="card-text">{{"{:,}".format(severe_data.s_infectionsByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Severe Cases By Requested Time</h5>
+                                    <p class="card-text">{{"{:,}".format(severe_data.s_severeCasesByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Available Hospital Beds</h5>
+                                    <p class="card-text">{{"{:,}".format(severe_data.s_hospitalBedsByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">ICU Cases</h5>
+                                    <p class="card-text">{{"{:,}".format(severe_data.s_casesForICUByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ventilator Cases</h5>
+                                    <p class="card-text">{{"{:,}".format(severe_data.s_casesForVentilatorsByRequestedTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="card my-3 card-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title">Dollars in Flight</h5>
+                                    <p class="card-text">{{"{:,}".format(severe_data.s_dollarsInFlight)}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+
+</html>
