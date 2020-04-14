@@ -1,5 +1,9 @@
 .github/.DS_Store
 
+package-lock.json
+test_estimator.py
+__pycache__
+
 # if using VSCode
 .vscode/
 

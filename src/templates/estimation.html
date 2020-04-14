@@ -1,0 +1,105 @@
+{% extends "index.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="card my-4" style="background-color: #eee;">
+            <div class="card-body">
+                <h3 class="text-center">Impact Estimation</h3>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Currently Infected</h5>
+                        <p class="card-text">{{ "{:,}".format(impact_data.currentlyInfected)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Infections By Requested Time</h5>
+                        <p class="card-text">{{"{:,}".format(impact_data.infectionsByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Severe Cases By Requested Time</h5>
+                        <p class="card-text">{{"{:,}".format(impact_data.severeCasesByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Available Hospital Beds</h5>
+                        <p class="card-text">{{"{:,}".format(impact_data.hospitalBedsByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">ICU Cases</h5>
+                        <p class="card-text">{{"{:,}".format(impact_data.casesForICUByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Ventilator Cases</h5>
+                        <p class="card-text">{{"{:,}".format(impact_data.casesForVentilatorsByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Dollars in Flight</h5>
+                        <p class="card-text">{{"{:,}".format(impact_data.dollarsInFlight)}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card my-4" style="background-color: #eee;">
+            <div class="card-body">
+                <h3 class="text-center">Severe Estimation</h3>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Currently Infected</h5>
+                        <p class="card-text">{{"{:,}".format(severe_data.s_currentlyInfected)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Infections By Requested Time</h5>
+                        <p class="card-text">{{"{:,}".format(severe_data.s_infectionsByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Severe Cases By Requested Time</h5>
+                        <p class="card-text">{{"{:,}".format(severe_data.s_severeCasesByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Available Hospital Beds</h5>
+                        <p class="card-text">{{"{:,}".format(severe_data.s_hospitalBedsByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">ICU Cases</h5>
+                        <p class="card-text">{{"{:,}".format(severe_data.s_casesForICUByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Ventilator Cases</h5>
+                        <p class="card-text">{{"{:,}".format(severe_data.s_casesForVentilatorsByRequestedTime)}}</p>
+                    </div>
+                </div>
+                <div class="card my-3 card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title">Dollars in Flight</h5>
+                        <p class="card-text">{{"{:,}".format(severe_data.s_dollarsInFlight)}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
