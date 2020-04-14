@@ -10,36 +10,36 @@
                 <div class="form-group my-3">
                     {{form.period_type.label(class="form-control-label")}}
 
-                    {{form.period_type(class="form-control", data_period_type)}}
+                    {{form.period_type(class="form-control", data="data_period_type")}}
 
                 </div>
                 <div class="form-group my-3">
                     {{form.time_to_elapse.label(class="form-control-label")}}
 
-                    {{form.time_to_elapse(class="form-control", data_time_to_elapse,placeholder="eg 10")}}
+                    {{form.time_to_elapse(class="form-control", data="data_time_to_elapse", placeholder="eg 10")}}
 
                 </div>
                 <div class="form-group my-3">
                     {{form.reported_cases.label(class="form-control-label")}}
 
-                    {{form.reported_cases(class="form-control", data_reported_cases)}}
+                    {{form.reported_cases(class="form-control", data="data_reported_cases", placeholder="Reported Cases")}}
 
                 </div>
                 <div class="form-group my-3">
                     {{form.population.label(class="form-control-label")}}
 
-                    {{form.population(class="form-control", data_population,placeholder="Total Population")}}
+                    {{form.population(class="form-control", data="data_population", placeholder="Total Population")}}
 
                 </div>
                 <div class="form-group my-3">
                     {{form.hospital_beds.label(class="form-control-label")}}
 
-                    {{form.hospital_beds(class="form-control", data_total_hospital_bed, placeholder="Total hospital beds")}}
+                    {{form.hospital_beds(class="form-control", data="data_total_hospital_beds", placeholder="Total hospital beds")}}
 
                 </div>
             </fieldset>
             <div class="form-group text-center">
-                {{form.submit(class="btn mt-2 submit btn-outline-success", data_go_estimate)}}
+                {{form.submit(class="btn mt-2 submit btn-outline-success",data="data_go_estimate")}}
             </div>
         </form>
     </div>
