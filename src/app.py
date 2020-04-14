@@ -27,7 +27,7 @@ def home():
         estimate = estimator(data)
         session['estimate'] = estimate
         return redirect(url_for('estimation'))
-    return render_template('index.html', title='Home', form=form)
+    return render_template('home.html', title='Home', form=form)
 
 
 {'data': {'periodType': 'weeks', 'population': 1000000, 'region': {'avgAge': 19.7, 'avgDailyIncomeInUSD': 5, 'avgDailyIncomePopulation': 0.71, 'name': 'Africa'}, 'reportedCases': 100, 'timeToElapse': 30, 'totalHospitalBeds': 120000},
@@ -67,5 +67,5 @@ def estimation():
     return render_template('estimation.html', title='Estimation', impact_data=impact_data, severe_data=severe_data)
 
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
