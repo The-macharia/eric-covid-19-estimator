@@ -30,10 +30,6 @@ def home():
     return render_template('home.html', title='Home', form=form)
 
 
-{'data': {'periodType': 'weeks', 'population': 1000000, 'region': {'avgAge': 19.7, 'avgDailyIncomeInUSD': 5, 'avgDailyIncomePopulation': 0.71, 'name': 'Africa'}, 'reportedCases': 100, 'timeToElapse': 30, 'totalHospitalBeds': 120000},
- }
-
-
 def create_impact_values(data):
     return {
         'currentlyInfected': data['impact']['currentlyInfected'],

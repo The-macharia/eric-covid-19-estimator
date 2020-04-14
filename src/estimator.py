@@ -46,10 +46,10 @@
 #     days = normalize_days(data)
 
 #     currentlyInfectedImpactByTime = int(estimate['impact']['currentlyInfected']
-#                                         * (2 ** int(days/3)))
+#                                         * (2 ** int(days//3)))
 
 #     currentlyInfectedSevereByTime = int(estimate['severeImpact']
-#                                         ['currentlyInfected'] * (2 ** int(days/3)))
+#                                         ['currentlyInfected'] * (2 ** int(days//3)))
 
 #     estimate['severeImpact']['infectionsByRequestedTime'] = \
 #         currentlyInfectedSevereByTime
